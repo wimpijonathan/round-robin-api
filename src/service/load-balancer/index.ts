@@ -15,7 +15,9 @@ export class LoadBalancerService {
         this.servers = servers;
 
         // perform healthcheck every 5 second
-        setInterval(this.executeHealthCheck, 5000);
+        if (process.env.TEST_MODE !== 'true') {
+            setInterval(this.executeHealthCheck.bind(this), 5000);
+        }
     }
 
     public async pickServer(): Promise<Server> {
@@ -127,7 +129,7 @@ export class LoadBalancerService {
                 }
             } catch (err) {
                 this.updateServerStats(server, { errorCount: server.errorCount+1 })
-                logger.error(`Received an error from server #${i} when executing healthcheck... Treating it as unhealthy`);
+                logger.error(`Received an error from server #${i} when executing healthcheck...`);
             }
         }
     }
