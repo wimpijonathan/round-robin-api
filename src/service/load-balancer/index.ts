@@ -78,7 +78,7 @@ export class LoadBalancerService {
     public async patchServer(req: PatchServerRequest): Promise<void> {
         if (req.append) {
             const found = this.servers.find((value) => {
-                return value.host === req.append.host && value.port === req.append.port
+                return value.host === req.append?.host && value.port === req.append?.port
             });
 
             if (!found) {
@@ -94,7 +94,7 @@ export class LoadBalancerService {
 
         if (req.remove) {
             this.servers = this.servers.filter((server) => {
-                return server.host !== req.remove.host && server.port !== req.remove.port;
+                return server.host !== req.remove?.host && server.port !== req.remove?.port;
             });
 
             logger.info(`Server with detail: ${JSON.stringify(req.append)} is successfully removed!`);
@@ -168,5 +168,9 @@ export class LoadBalancerService {
 
             logger.info(`Updated server: ${JSON.stringify(this.servers[idx])}`);
         }
+    }
+
+    getServers(): Server[] {
+        return this.servers;
     }
 }
