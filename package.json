@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "rm -rf dist && tsc",
-    "start:main": "npm run build && node dist/server/main/index.js",
-    "start:load-balancer": "npm run build && node dist/server/load-balancer/index.js",
+    "start:main": "npm run build && node dist/src/server/main/index.js",
+    "start:load-balancer": "npm run build && node dist/src/server/load-balancer/index.js",
     "test": "export TEST_MODE=true && jest --verbose tests"
   },
   "keywords": [],
